@@ -4,6 +4,21 @@ A full-stack clone of the AWS Route 53 DNS management console, built with **Next
 
 ---
 
+## 🌐 Live Demo
+
+| Service | URL |
+|---------|-----|
+| **Frontend** (Vercel) | https://aws-route53-clone-h70mxg33q-maxie2.vercel.app |
+| **Backend API / Swagger UI** (Railway) | https://aws-route53-clone-production.up.railway.app/docs |
+
+**Demo credentials:** username `admin` · password `admin123`
+
+> **Operational note:** If the live demo shows no hosted zones or records, the database may need re-seeding. This can happen when the Railway persistent volume is fresh (first deploy or volume replacement). Run `python seed.py` against the backend to restore sample data.
+
+See [DESIGN.md](./DESIGN.md) for full architecture and design decisions.
+
+---
+
 ## 📋 Project Overview
 
 This project replicates the core functionality of the AWS Route 53 console, including:
@@ -40,7 +55,8 @@ python seed.py
 uvicorn app.main:app --reload --port 8000
 ```
 
-Backend Swagger UI: http://localhost:8000/docs
+Local Swagger UI (dev): http://localhost:8000/docs  
+Production Swagger UI: https://aws-route53-clone-production.up.railway.app/docs
 
 ### Frontend (Next.js)
 
@@ -54,30 +70,38 @@ npm install --legacy-peer-deps
 npm run dev
 ```
 
-Frontend: http://localhost:3000
+Local frontend (dev): http://localhost:3000  
+Production frontend: https://aws-route53-clone-h70mxg33q-maxie2.vercel.app
 
 ---
 
 ## 🏗 Architecture Overview
 
-The application uses a classic three-tier monorepo architecture:
+The application uses a classic three-tier architecture deployed as two independent services:
 
 ```
-Browser (Next.js on :3000)
-        │  HTTP (proxied via next.config.js rewrite)
+Browser
+        │  HTTPS
         ▼
-FastAPI Server (Uvicorn on :8000)
+Next.js 14 — Vercel
+https://aws-route53-clone-h70mxg33q-maxie2.vercel.app
+        │  next.config.js rewrite: /api/* → NEXT_PUBLIC_API_URL/*
+        ▼
+FastAPI (Uvicorn) — Railway
+https://aws-route53-clone-production.up.railway.app
    ├── JWT auth middleware (httpOnly cookie)
    ├── /auth  → login / logout / me
    ├── /hosted-zones  → CRUD + pagination
    └── /hosted-zones/{id}/records  → CRUD + pagination + validation
         │  SQLAlchemy ORM
         ▼
-SQLite Database (backend/data/app.db)
+SQLite — Railway persistent volume
    ├── users
    ├── hosted_zones
    └── dns_records
 ```
+
+In local development, `NEXT_PUBLIC_API_URL` is unset and the rewrite defaults to `http://localhost:8000` (local backend). In production, `NEXT_PUBLIC_API_URL` is set to `https://aws-route53-clone-production.up.railway.app` in the Vercel environment variable dashboard — no code changes required between environments.
 
 ---
 
@@ -179,5 +203,6 @@ JWT tokens are stored in `httpOnly` cookies with a 60-minute expiry. All `/hoste
 │       ├── lib/             # API client
 │       └── types/           # TypeScript types
 ├── .gitignore
-└── README.md
+├── README.md
+└── DESIGN.md       # Architecture and design decisions
 ```
