@@ -1,0 +1,14 @@
+FRONTEND VALIDATION TESTS
+========================================
+A record: try value 'hello'                             -> UI Result: Error: Invalid IPv4
+A record: try value '192.0.2.1'                         -> UI Result: success
+A record: try '999.999.999.999'                         -> UI Result: Error: Invalid IPv4
+AAAA record: try 'hello'                                -> UI Result: Error: Invalid IPv6
+AAAA record: try '2001:db8::1'                          -> UI Result: success
+CNAME record: try 'hello world'                         -> UI Result: Error: Invalid hostname
+CNAME record: try 'target.example.com'                  -> UI Result: success
+CAA record: try 'issue letsencrypt.org'                 -> UI Result: Error: Invalid CAA format
+CAA record: try '0 issue "letsencrypt.org"'             -> UI Result: success
+TXT record: try 'normal string'                         -> UI Result: success
+NS record: valid                                        -> UI Result: success
+NS record: space                                        -> UI Result: Error: Invalid hostname

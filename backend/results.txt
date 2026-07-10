@@ -1,0 +1,36 @@
+BACKEND API TESTS
+==================================================
+A bad string              -> Status: 422 | Detail: Invalid IPv4 address format. Expected e.g. '192.0.2.1', got 'hello'
+A valid                   -> Status: 201 | Detail: Success
+A out of range            -> Status: 422 | Detail: Invalid IPv4 address format. Expected e.g. '192.0.2.1', got '999.999.999.999'
+AAAA bad                  -> Status: 422 | Detail: Invalid IPv6 address format. Expected e.g. '2001:db8::1', got 'hello'
+AAAA valid                -> Status: 201 | Detail: Success
+CNAME bad space           -> Status: 422 | Detail: Invalid hostname for RecordType.CNAME record. Must use letters, digits, hyphens and dots (no spaces, no bare IPs). Got: 'hello world'
+CNAME valid               -> Status: 201 | Detail: Success
+MX missing prio           -> Status: 422 | Detail: MX records require 'priority'
+MX prio out of range      -> Status: 422 | Detail: MX priority must be 0–65535
+MX valid                  -> Status: 201 | Detail: Success
+SRV missing port          -> Status: 422 | Detail: SRV records require 'port'
+SRV port out of range     -> Status: 422 | Detail: SRV port must be 1–65535
+SRV valid                 -> Status: 201 | Detail: Success
+CAA missing quotes        -> Status: 422 | Detail: CAA record value must match: <flag> <tag> "<value>" — e.g. '0 issue "letsencrypt.org"'. Flag must be 0 or 128; tag must be issue, issuewild, or iodef.
+CAA valid                 -> Status: 201 | Detail: Success
+TXT valid                 -> Status: 201 | Detail: Success
+NS bad space              -> Status: 422 | Detail: Invalid hostname for RecordType.NS record. Must use letters, digits, hyphens and dots (no spaces, no bare IPs). Got: 'ns1 .com'
+NS valid                  -> Status: 201 | Detail: Success
+PTR valid                 -> Status: 201 | Detail: Success
+
+REGRESSION: EDITING
+==================================================
+Edit A to invalid string -> Status: 422 | Detail: Invalid IPv4 address format. Expected e.g. '192.0.2.1', got 'invalid edit'
+Edit A to valid string   -> Status: 200 | Detail: Success
+
+REGRESSION: DELETING
+==================================================
+Delete record -> Status: 204
+
+REGRESSION: ZONE CRUD
+==================================================
+Create Zone -> Status: 201
+Update Zone -> Status: 200
+Delete Zone -> Status: 204
