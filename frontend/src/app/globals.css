@@ -4,153 +4,361 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-
-  html {
-    font-family: 'Inter', 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif;
-    font-size: 14px;
-    color: #16191F;
-    background-color: #F2F3F3;
-  }
-
-  body {
-    min-height: 100vh;
-    background-color: #F2F3F3;
-  }
+/* ─── Base reset & typography ─────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
-@layer components {
-  /* ─── AWS Console Buttons ─────────────────────────────────────────── */
-  .btn-primary {
-    @apply inline-flex items-center gap-1.5 px-4 py-2 bg-aws-blue text-white text-sm font-medium rounded 
-           hover:bg-aws-blueHover active:bg-aws-blueDark transition-colors focus:outline-none 
-           focus:ring-2 focus:ring-aws-blue focus:ring-offset-1 disabled:opacity-50 disabled:cursor-not-allowed;
-  }
-
-  .btn-secondary {
-    @apply inline-flex items-center gap-1.5 px-4 py-2 bg-white text-aws-text text-sm font-medium rounded 
-           border border-aws-border hover:bg-gray-50 active:bg-gray-100 transition-colors focus:outline-none 
-           focus:ring-2 focus:ring-aws-blue focus:ring-offset-1 disabled:opacity-50 disabled:cursor-not-allowed;
-  }
-
-  .btn-danger {
-    @apply inline-flex items-center gap-1.5 px-4 py-2 bg-white text-aws-error text-sm font-medium rounded 
-           border border-aws-error hover:bg-red-50 transition-colors focus:outline-none 
-           focus:ring-2 focus:ring-red-400 focus:ring-offset-1 disabled:opacity-50 disabled:cursor-not-allowed;
-  }
-
-  /* ─── AWS Console Form Inputs ─────────────────────────────────────── */
-  .input-field {
-    @apply w-full px-3 py-2 text-sm border border-aws-border rounded bg-white 
-           focus:outline-none focus:ring-2 focus:ring-aws-blue focus:border-aws-blue 
-           placeholder:text-aws-textMuted transition-colors;
-  }
-
-  .input-label {
-    @apply block text-sm font-medium text-aws-text mb-1;
-  }
-
-  /* ─── Cards ───────────────────────────────────────────────────────── */
-  .card {
-    @apply bg-white border border-aws-border rounded shadow-card;
-  }
-
-  .card-header {
-    @apply px-5 py-4 border-b border-aws-border flex items-center justify-between;
-  }
-
-  .card-title {
-    @apply text-base font-semibold text-aws-text;
-  }
-
-  /* ─── Table ───────────────────────────────────────────────────────── */
-  .table-wrapper {
-    @apply overflow-x-auto;
-  }
-
-  .aws-table {
-    @apply w-full text-sm border-collapse;
-  }
-
-  .aws-table thead tr {
-    @apply bg-gray-50 border-b border-aws-border;
-  }
-
-  .aws-table thead th {
-    @apply px-4 py-3 text-left text-xs font-semibold text-aws-textMuted uppercase tracking-wide whitespace-nowrap;
-  }
-
-  .aws-table tbody tr {
-    @apply border-b border-aws-border hover:bg-blue-50/40 transition-colors cursor-pointer;
-  }
-
-  .aws-table tbody td {
-    @apply px-4 py-3 text-aws-text;
-  }
-
-  /* ─── Badge / Pill ────────────────────────────────────────────────── */
-  .badge-public {
-    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-aws-success;
-  }
-
-  .badge-private {
-    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-aws-textMuted;
-  }
-
-  /* ─── Modal ───────────────────────────────────────────────────────── */
-  .modal-backdrop {
-    @apply fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-center justify-center p-4;
-  }
-
-  .modal-box {
-    @apply bg-white rounded-lg shadow-dropdown w-full max-w-lg;
-  }
-
-  .modal-header {
-    @apply flex items-center justify-between px-6 py-4 border-b border-aws-border;
-  }
-
-  .modal-body {
-    @apply px-6 py-5 space-y-4;
-  }
-
-  .modal-footer {
-    @apply flex items-center justify-end gap-3 px-6 py-4 border-t border-aws-border bg-gray-50 rounded-b-lg;
-  }
-
-  /* ─── Sidebar nav ─────────────────────────────────────────────────── */
-  .nav-link {
-    @apply flex items-center gap-2.5 px-3 py-2 rounded text-sm text-aws-textMuted 
-           hover:bg-blue-50 hover:text-aws-blue transition-colors;
-  }
-
-  .nav-link.active {
-    @apply bg-blue-50 text-aws-blue font-medium;
-  }
-
-  /* ─── Pagination ──────────────────────────────────────────────────── */
-  .page-btn {
-    @apply inline-flex items-center justify-center w-8 h-8 text-sm border border-aws-border rounded 
-           hover:bg-gray-50 transition-colors disabled:opacity-40 disabled:cursor-not-allowed;
-  }
-
-  .page-btn.active {
-    @apply bg-aws-blue text-white border-aws-blue hover:bg-aws-blueHover;
-  }
-}
-
-/* Smooth scroll */
 html {
+  font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 14px;
+  color: #16191F;
+  background-color: #F2F3F3;
   scroll-behavior: smooth;
 }
 
-/* Focus visible outline */
+body {
+  min-height: 100vh;
+  background-color: #F2F3F3;
+  margin: 0;
+  padding: 0;
+}
+
 :focus-visible {
   outline: 2px solid #0972D3;
   outline-offset: 2px;
+}
+
+/* ─── Buttons ─────────────────────────────────────────────────────────────── */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #fff;
+  background-color: #0972D3;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.15s;
+  font-family: inherit;
+}
+
+.btn-primary:hover {
+  background-color: #0558A8;
+}
+
+.btn-primary:active {
+  background-color: #033160;
+}
+
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 15px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #16191F;
+  background-color: #fff;
+  border: 1px solid #D5DBDB;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.15s;
+  font-family: inherit;
+}
+
+.btn-secondary:hover {
+  background-color: #F8F8F8;
+}
+
+.btn-secondary:active {
+  background-color: #EAEDED;
+}
+
+.btn-secondary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-danger {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 15px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #D13212;
+  background-color: #fff;
+  border: 1px solid #D13212;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.15s;
+  font-family: inherit;
+}
+
+.btn-danger:hover {
+  background-color: #FEF0EE;
+}
+
+.btn-danger:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ─── Form inputs ─────────────────────────────────────────────────────────── */
+.input-field {
+  display: block;
+  width: 100%;
+  padding: 8px 12px;
+  font-size: 13px;
+  color: #16191F;
+  background-color: #fff;
+  border: 1px solid #D5DBDB;
+  border-radius: 4px;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  font-family: inherit;
+}
+
+.input-field:focus {
+  border-color: #0972D3;
+  box-shadow: 0 0 0 3px rgba(9, 114, 211, 0.15);
+}
+
+.input-field::placeholder {
+  color: #9AA5B4;
+}
+
+.input-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: #16191F;
+  margin-bottom: 5px;
+}
+
+/* ─── Cards ───────────────────────────────────────────────────────────────── */
+.card {
+  background-color: #fff;
+  border: 1px solid #D5DBDB;
+  border-radius: 4px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.07);
+}
+
+.card-header {
+  padding: 14px 20px;
+  border-bottom: 1px solid #EAEDED;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.card-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #16191F;
+  margin: 0;
+}
+
+/* ─── Table ───────────────────────────────────────────────────────────────── */
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.aws-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.aws-table thead tr {
+  background-color: #FAFAFA;
+  border-bottom: 1px solid #EAEDED;
+}
+
+.aws-table thead th {
+  padding: 10px 16px;
+  text-align: left;
+  font-size: 11px;
+  font-weight: 700;
+  color: #687078;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.aws-table tbody tr {
+  border-bottom: 1px solid #EAEDED;
+  cursor: pointer;
+  transition: background-color 0.1s;
+}
+
+.aws-table tbody tr:hover {
+  background-color: #F0F7FF;
+}
+
+.aws-table tbody td {
+  padding: 12px 16px;
+  color: #16191F;
+}
+
+/* ─── Badges ──────────────────────────────────────────────────────────────── */
+.badge-public {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  background-color: #D6F5D6;
+  color: #037F0C;
+}
+
+.badge-private {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  background-color: #F0F0F0;
+  color: #687078;
+}
+
+/* ─── Modal ───────────────────────────────────────────────────────────────── */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(2px);
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.modal-box {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+  width: 100%;
+  max-width: 560px;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  border-bottom: 1px solid #EAEDED;
+}
+
+.modal-body {
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 14px 24px;
+  border-top: 1px solid #EAEDED;
+  background-color: #FAFAFA;
+  border-radius: 0 0 8px 8px;
+}
+
+/* ─── Sidebar nav links ───────────────────────────────────────────────────── */
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 12px;
+  border-radius: 4px;
+  font-size: 13px;
+  color: #687078;
+  text-decoration: none;
+  transition: background-color 0.13s, color 0.13s;
+}
+
+.nav-link:hover {
+  background-color: #EBF3FB;
+  color: #0972D3;
+}
+
+.nav-link.active {
+  background-color: #EBF3FB;
+  color: #0972D3;
+  font-weight: 600;
+}
+
+/* ─── Pagination buttons ──────────────────────────────────────────────────── */
+.page-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  font-size: 13px;
+  border: 1px solid #D5DBDB;
+  border-radius: 4px;
+  background-color: #fff;
+  cursor: pointer;
+  transition: background-color 0.13s;
+  color: #16191F;
+}
+
+.page-btn:hover:not(:disabled) {
+  background-color: #F8F8F8;
+}
+
+.page-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.page-btn.active {
+  background-color: #0972D3;
+  color: #fff;
+  border-color: #0972D3;
+}
+
+.page-btn.active:hover {
+  background-color: #0558A8;
+}
+
+/* ─── Spinner ─────────────────────────────────────────────────────────────── */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.65s linear infinite;
+}
+
+.spinner-dark {
+  border-color: rgba(9, 114, 211, 0.2);
+  border-top-color: #0972D3;
 }
