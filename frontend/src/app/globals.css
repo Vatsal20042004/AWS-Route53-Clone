@@ -1,0 +1,156 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    font-family: 'Inter', 'Amazon Ember', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 14px;
+    color: #16191F;
+    background-color: #F2F3F3;
+  }
+
+  body {
+    min-height: 100vh;
+    background-color: #F2F3F3;
+  }
+}
+
+@layer components {
+  /* ─── AWS Console Buttons ─────────────────────────────────────────── */
+  .btn-primary {
+    @apply inline-flex items-center gap-1.5 px-4 py-2 bg-aws-blue text-white text-sm font-medium rounded 
+           hover:bg-aws-blueHover active:bg-aws-blueDark transition-colors focus:outline-none 
+           focus:ring-2 focus:ring-aws-blue focus:ring-offset-1 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center gap-1.5 px-4 py-2 bg-white text-aws-text text-sm font-medium rounded 
+           border border-aws-border hover:bg-gray-50 active:bg-gray-100 transition-colors focus:outline-none 
+           focus:ring-2 focus:ring-aws-blue focus:ring-offset-1 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-danger {
+    @apply inline-flex items-center gap-1.5 px-4 py-2 bg-white text-aws-error text-sm font-medium rounded 
+           border border-aws-error hover:bg-red-50 transition-colors focus:outline-none 
+           focus:ring-2 focus:ring-red-400 focus:ring-offset-1 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  /* ─── AWS Console Form Inputs ─────────────────────────────────────── */
+  .input-field {
+    @apply w-full px-3 py-2 text-sm border border-aws-border rounded bg-white 
+           focus:outline-none focus:ring-2 focus:ring-aws-blue focus:border-aws-blue 
+           placeholder:text-aws-textMuted transition-colors;
+  }
+
+  .input-label {
+    @apply block text-sm font-medium text-aws-text mb-1;
+  }
+
+  /* ─── Cards ───────────────────────────────────────────────────────── */
+  .card {
+    @apply bg-white border border-aws-border rounded shadow-card;
+  }
+
+  .card-header {
+    @apply px-5 py-4 border-b border-aws-border flex items-center justify-between;
+  }
+
+  .card-title {
+    @apply text-base font-semibold text-aws-text;
+  }
+
+  /* ─── Table ───────────────────────────────────────────────────────── */
+  .table-wrapper {
+    @apply overflow-x-auto;
+  }
+
+  .aws-table {
+    @apply w-full text-sm border-collapse;
+  }
+
+  .aws-table thead tr {
+    @apply bg-gray-50 border-b border-aws-border;
+  }
+
+  .aws-table thead th {
+    @apply px-4 py-3 text-left text-xs font-semibold text-aws-textMuted uppercase tracking-wide whitespace-nowrap;
+  }
+
+  .aws-table tbody tr {
+    @apply border-b border-aws-border hover:bg-blue-50/40 transition-colors cursor-pointer;
+  }
+
+  .aws-table tbody td {
+    @apply px-4 py-3 text-aws-text;
+  }
+
+  /* ─── Badge / Pill ────────────────────────────────────────────────── */
+  .badge-public {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-aws-success;
+  }
+
+  .badge-private {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-aws-textMuted;
+  }
+
+  /* ─── Modal ───────────────────────────────────────────────────────── */
+  .modal-backdrop {
+    @apply fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-center justify-center p-4;
+  }
+
+  .modal-box {
+    @apply bg-white rounded-lg shadow-dropdown w-full max-w-lg;
+  }
+
+  .modal-header {
+    @apply flex items-center justify-between px-6 py-4 border-b border-aws-border;
+  }
+
+  .modal-body {
+    @apply px-6 py-5 space-y-4;
+  }
+
+  .modal-footer {
+    @apply flex items-center justify-end gap-3 px-6 py-4 border-t border-aws-border bg-gray-50 rounded-b-lg;
+  }
+
+  /* ─── Sidebar nav ─────────────────────────────────────────────────── */
+  .nav-link {
+    @apply flex items-center gap-2.5 px-3 py-2 rounded text-sm text-aws-textMuted 
+           hover:bg-blue-50 hover:text-aws-blue transition-colors;
+  }
+
+  .nav-link.active {
+    @apply bg-blue-50 text-aws-blue font-medium;
+  }
+
+  /* ─── Pagination ──────────────────────────────────────────────────── */
+  .page-btn {
+    @apply inline-flex items-center justify-center w-8 h-8 text-sm border border-aws-border rounded 
+           hover:bg-gray-50 transition-colors disabled:opacity-40 disabled:cursor-not-allowed;
+  }
+
+  .page-btn.active {
+    @apply bg-aws-blue text-white border-aws-blue hover:bg-aws-blueHover;
+  }
+}
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Focus visible outline */
+:focus-visible {
+  outline: 2px solid #0972D3;
+  outline-offset: 2px;
+}
